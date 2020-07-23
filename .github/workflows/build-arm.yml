@@ -35,3 +35,19 @@ jobs:
         export CC=$(which arm-linux-gnueabihf-gcc)
         export CXX="$(which arm-linux-gnueabihf-g++) -L$(pwd)/rootfs/usr/lib/arm-linux-gnueabihf/"
         export npm_config_arch=arm
+
+    # Clone vscode repo
+    - name: Clone VS Code repository
+      run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
+
+    # Replace product.json with our one
+    - name: Copy in product.json
+      run: cp ./product.json ./vscode/product.json
+
+    # cd vscode
+    - name: change directory
+      run: cd vscode
+    
+    # yarn
+    - name: yarn
+      run: yarn
