@@ -52,14 +52,14 @@ jobs:
     - name: yarn
       run: yarn --cwd vscode
 
-    # # minify
-    # - name: yarn minify
-    #   run: yarn run gulp vscode-linux-arm-min
+    # minify
+    - name: yarn minify
+      run: yarn --cwd vscode run gulp vscode-linux-arm-min
 
-    # # build deb
-    # - name: yarn build deb
-    #   run: yarn run gulp vscode-linux-arm-build-deb
+    # build deb
+    - name: yarn build deb
+      run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
 
-    # # check build dir
-    # - name: list deb files
-    #   run: find ./.build -type f -name "*.deb"
+    # check build dir
+    - name: list deb files
+      run: find ./vscode/.build -type f -name "*.deb"
