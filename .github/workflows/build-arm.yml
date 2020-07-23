@@ -30,7 +30,7 @@ jobs:
     - name: Install and configure cross-compile toolchain
       run: |
         sudo apt install -y qemu qemu-user-static debootstrap gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-        sudo qemu-debootstrap --arch=armhf --variant=minbase xenial rootfs
+        sudo qemu-debootstrap --arch=arm64 --variant=minbase xenial rootfs
         sudo chroot rootfs apt-get install -y libx11-dev
         export CC=$(which arm-linux-gnueabihf-gcc)
         export CXX="$(which arm-linux-gnueabihf-g++) -L$(pwd)/rootfs/usr/lib/arm-linux-gnueabihf/"
@@ -40,7 +40,7 @@ jobs:
     - name: Clone VS Code repository
       run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
 
-    # Replace product.json with our one
+    # # Replace product.json with our one
     - name: Copy in product.json
       run: cp ./product.json ./vscode/product.json
 
