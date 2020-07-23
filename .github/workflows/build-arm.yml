@@ -26,15 +26,15 @@ jobs:
     - name: Install dependancies
       run: sudo apt install -y libx11-dev libxkbfile-dev libsecret-1-dev fakeroot
       
-    # Install and configure cross-compile toolchain
-    - name: Install and configure cross-compile toolchain
-      run: |
-        sudo apt install -y qemu qemu-user-static debootstrap gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-        sudo qemu-debootstrap --arch=armhf --variant=minbase xenial rootfs
-        sudo chroot rootfs apt-get install -y libx11-dev
-        export CC=$(which arm-linux-gnueabihf-gcc)
-        export CXX="$(which arm-linux-gnueabihf-g++) -L$(pwd)/rootfs/usr/lib/arm-linux-gnueabihf/"
-        export npm_config_arch=arm
+    # # Install and configure cross-compile toolchain
+    # - name: Install and configure cross-compile toolchain
+    #   run: |
+    #     sudo apt install -y qemu qemu-user-static debootstrap gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+    #     sudo qemu-debootstrap --arch=armhf --variant=minbase xenial rootfs
+    #     sudo chroot rootfs apt-get install -y libx11-dev
+    #     export CC=$(which arm-linux-gnueabihf-gcc)
+    #     export CXX="$(which arm-linux-gnueabihf-g++) -L$(pwd)/rootfs/usr/lib/arm-linux-gnueabihf/"
+    #     export npm_config_arch=arm
 
     # Clone vscode repo
     - name: Clone VS Code repository
@@ -50,4 +50,16 @@ jobs:
     
     # yarn
     - name: yarn
-      run: yarn
+      run: yarn && ls -a
+
+    # # minify
+    # - name: yarn minify
+    #   run: yarn run gulp vscode-linux-arm-min
+
+    # # build deb
+    # - name: yarn build deb
+    #   run: yarn run gulp vscode-linux-arm-build-deb
+
+    # # check build dir
+    # - name: list deb files
+    #   run: find ./.build -type f -name "*.deb"
