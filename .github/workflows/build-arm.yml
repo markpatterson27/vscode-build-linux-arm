@@ -61,12 +61,12 @@ jobs:
         npx --cwd vscode electron-rebuild -f -w vscode-sqlite3
 
     # minify armhf
-    - name: yarn minify 32-bit
-      run: yarn --cwd vscode run gulp vscode-linux-arm-min
+    # - name: yarn minify 32-bit
+    #   run: yarn --cwd vscode run gulp vscode-linux-arm-min
 
-    # build deb armhf
-    - name: yarn build deb 32-bit
-      run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
+    # # build deb armhf
+    # - name: yarn build deb 32-bit
+    #   run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
 
     # minify arm64
     - name: yarn minify 64-bit
