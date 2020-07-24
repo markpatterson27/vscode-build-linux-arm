@@ -467,6 +467,7 @@
 		"hnw.vscode-auto-open-markdown-preview": ["ui", "workspace"],
 		"wayou.vscode-todo-highlight": ["ui", "workspace"]
 	},
+	"linkProtectionTrustedDomains": ["https://*.visualstudio.com", "https://*.microsoft.com", "https://aka.ms", "https://vscode-auth.github.com", "https://*.gallerycdn.vsassets.io", "https://github.com/microsoft/", "https://github.com/MicrosoftDocs/", "https://login.microsoftonline.com"],
 	"builtInExtensions": [
 		{
 			"name": "ms-vscode.node-debug",
