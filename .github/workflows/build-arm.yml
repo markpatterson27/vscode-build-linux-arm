@@ -22,9 +22,9 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     # get short sha
     - name: Set outputs
-      uses: actions/checkout@v2
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
     # create release
@@ -87,31 +87,31 @@ jobs:
       run: find ./vscode/.build -type f -name "*.deb"
 
     # # upload debs as release. using hub cli
-    # - name: release debs
-    #   run: |
-    #     set -x
-    #     assets=()
-    #     for asset in $(find ./vscode/.build -type f -name "*.deb"); do
-    #       assets+=("-a" "$asset")
-    #     done
-    #     tag_name="test-electron-rebuild"
-    #     hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: upload release deb
+      run: |
+        set -x
+        assets=()
+        for asset in $(find ./vscode/.build -type f -name "*.deb"); do
+          assets+=("-a" "$asset")
+        done
+        tag_name="$(git rev-parse --short HEAD)"
+        hub release edit "${assets[@]}" -m "$tag_name" "$tag_name"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     #   # tag_name="${GITHUB_REF##*/}"
 
     # upload release
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./vscode/.build/linux/deb/armhf/deb/code-oss_1.??.?-*_armhf.deb
-        asset_name: code-oss_1.47.2_armhf.deb
-        asset_content_type: application/deb
+    # - name: Upload Release Asset
+    #   id: upload-release-asset 
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+    #     asset_path: ./vscode/.build/linux/deb/armhf/deb/code-oss_1.??.?-*_armhf.deb
+    #     asset_name: code-oss_1.47.2_armhf.deb
+    #     asset_content_type: application/deb
 
   # build for armhf arch
   build-64:
