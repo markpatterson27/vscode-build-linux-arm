@@ -1,8 +1,8 @@
-# VS Code Build ARM
+# VS Code Build Linux ARM
 
-![ARM builds](https://github.com/markpatterson27/vscode-build-arm/workflows/ARM%20builds/badge.svg)
+![ARM builds](https://github.com/markpatterson27/vscode-build-linux-arm/workflows/ARM%20builds/badge.svg)
 
-Build VS Code for ARM targets.
+Build VS Code for Linux ARM targets.
 
 ## References
 
