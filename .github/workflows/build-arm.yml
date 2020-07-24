@@ -1,4 +1,7 @@
-# This is a basic workflow to help you get started with Actions
+# Workflow
+#   - create release
+#   - build and upload 32bit deb to release
+#   - build and upload 64bit deb to release
 
 name: ARM builds
 
@@ -7,30 +10,48 @@ name: ARM builds
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+
+# on:
+#   push:
+#     tags: ["v*"] # Push events to matching v*, i.e. v1.0, v20.15.10
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  # Create release
+  create-release:
     runs-on: ubuntu-latest
+    steps:
+    # create release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        # tag_name: ${{ github.ref }}
+        # release_name: Release ${{ github.ref }}
+        tag_name: test-1
+        release_name: Release test-1
+        draft: false
+        prerelease: false
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  # build for armhf arch
+  build-32:
+    runs-on: ubuntu-latest
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-        
+
     # Install additional dependancies (node and yarn should already be installed)
     - name: Install dependancies
       run: sudo apt install -y libx11-dev libxkbfile-dev libsecret-1-dev fakeroot
-      
+
     # Install and configure cross-compile toolchain
-    - name: Install and configure cross-compile toolchain
+    - name: Install and configure armhf cross-compile toolchain
       run: |
         sudo apt install -y qemu qemu-user-static debootstrap gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-        sudo qemu-debootstrap --arch=arm64 --variant=minbase bionic rootfs
+        sudo qemu-debootstrap --arch=armhf --variant=minbase bionic rootfs
         sudo chroot rootfs apt-get install -y libx11-dev
         export CC=$(which arm-linux-gnueabihf-gcc)
         export CXX="$(which arm-linux-gnueabihf-g++) -L$(pwd)/rootfs/usr/lib/arm-linux-gnueabihf/"
@@ -40,33 +61,93 @@ jobs:
     - name: Clone VS Code repository
       run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
 
-    # # Replace product.json with our one
+    # Replace product.json with our one
     - name: Copy in product.json
       run: cp ./product-debug.json ./vscode/product.json
 
-    # # cd vscode
-    # - name: change directory
-    #   run: cd vscode
-    
     # yarn
     - name: yarn
       run: yarn --cwd vscode
 
-    # rebuild electron
-    - name: rebuild electron and sqlite3
-      run: |
-        sed -i -z 's/,\n[^\n]*arm[^\n]*//' vscode/node_modules/vscode-sqlite3/binding.gyp
-        sed -i "s/Release\/sqlite'/Release\/sqlite.node'/" vscode/node_modules/vscode-sqlite3/lib/sqlite3.js
-        yarn --cwd vscode add -D electron-rebuild
-        npx --cwd vscode electron-rebuild -f -w vscode-sqlite3
-
     # minify armhf
-    # - name: yarn minify 32-bit
-    #   run: yarn --cwd vscode run gulp vscode-linux-arm-min
+    - name: yarn minify 32-bit
+      run: yarn --cwd vscode run gulp vscode-linux-arm-min
 
-    # # build deb armhf
-    # - name: yarn build deb 32-bit
-    #   run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
+    # build deb armhf
+    - name: yarn build deb 32-bit
+      run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
+
+    # check build dir
+    - name: list deb files
+      run: find ./vscode/.build -type f -name "*.deb"
+
+    # # upload debs as release. using hub cli
+    # - name: release debs
+    #   run: |
+    #     set -x
+    #     assets=()
+    #     for asset in $(find ./vscode/.build -type f -name "*.deb"); do
+    #       assets+=("-a" "$asset")
+    #     done
+    #     tag_name="test-electron-rebuild"
+    #     hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    #   # tag_name="${GITHUB_REF##*/}"
+
+    # upload release
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./vscode/.build/linux/deb/armhf/deb/code-oss_1.??.?-*_armhf.deb
+        asset_name: code-oss_1.47.2_armhf.deb
+        asset_content_type: application/deb
+
+  # build for armhf arch
+  build-64:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Install additional dependancies (node and yarn should already be installed)
+    - name: Install dependancies
+      run: sudo apt install -y libx11-dev libxkbfile-dev libsecret-1-dev fakeroot
+
+    # Install and configure cross-compile toolchain
+    - name: Install and configure armhf cross-compile toolchain
+      run: |
+        sudo apt install -y qemu qemu-user-static debootstrap gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+        sudo qemu-debootstrap --arch=arm64 --variant=minbase bionic rootfs
+        sudo chroot rootfs apt-get install -y libx11-dev
+        export CC=$(which aarch64-linux-gnu-gcc)
+        export CXX="$(which aarch64-linux-gnu-g++) -L$(pwd)/rootfs/usr/lib/aarch64-linux-gnu/"
+        export npm_config_arch=arm64
+
+    # Clone vscode repo
+    - name: Clone VS Code repository
+      run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
+
+    # # Replace product.json with our one
+    - name: Copy in product.json
+      run: cp ./product-debug.json ./vscode/product.json
+
+    # yarn
+    - name: yarn
+      run: yarn --cwd vscode
+
+    # # rebuild electron
+    # - name: rebuild electron and sqlite3
+    #   run: |
+    #     sed -i -z 's/,\n[^\n]*arm[^\n]*//' vscode/node_modules/vscode-sqlite3/binding.gyp
+    #     sed -i "s/Release\/sqlite'/Release\/sqlite.node'/" vscode/node_modules/vscode-sqlite3/lib/sqlite3.js
+    #     yarn --cwd vscode add -D electron-rebuild
+    #     npx --cwd vscode electron-rebuild -f -w vscode-sqlite3
 
     # minify arm64
     - name: yarn minify 64-bit
@@ -88,9 +169,10 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-electron-rebuild"
+        tag_name="test-arm64-build"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # tag_name="${GITHUB_REF##*/}"
+    
