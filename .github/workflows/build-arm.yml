@@ -42,7 +42,7 @@ jobs:
 
     # # Replace product.json with our one
     - name: Copy in product.json
-      run: cp ./product.json ./vscode/product.json
+      run: cp ./product-min.json ./vscode/product.json
 
     # # cd vscode
     # - name: change directory
@@ -52,11 +52,11 @@ jobs:
     - name: yarn
       run: yarn --cwd vscode
 
-    # minify arm32
+    # minify armhf
     - name: yarn minify 32-bit
       run: yarn --cwd vscode run gulp vscode-linux-arm-min
 
-    # build deb arm32
+    # build deb armhf
     - name: yarn build deb 32-bit
       run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
 
@@ -80,7 +80,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test"
+        tag_name="test2"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
