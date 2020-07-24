@@ -77,7 +77,7 @@ jobs:
       run: |
         set -x
         assets=()
-        for asset in ./vscode/.build/*.deb; do
+        for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
         tag_name="test"
