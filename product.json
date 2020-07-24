@@ -30,6 +30,310 @@
 		"controlUrl": "https://az764295.vo.msecnd.net/extensions/marketplace.json",
 		"recommendationsUrl": "https://az764295.vo.msecnd.net/extensions/workspaceRecommendations.json.gz"
 	},
+	"extensionTips": {
+		"ms-dotnettools.csharp": "{**/*.cs,**/project.json,**/global.json,**/*.csproj,**/*.cshtml,**/*.sln,**/appsettings.json}",
+		"msjsdiag.debugger-for-chrome": "{**/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.es6,**/.babelrc}",
+		"firefox-devtools.vscode-firefox-debug": "{**/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.es6,**/.babelrc}",
+		"golang.Go": "**/*.go",
+		"ms-vscode.PowerShell": "{**/*.ps1,**/*.psd1,**/*.psm1,**/*.ps.config,**/*.ps1.config}",
+		"austin.code-gnu-global": "{**/*.c,**/*.cpp,**/*.h}",
+		"Ionide.Ionide-fsharp": "{**/*.fsx,**/*.fsi,**/*.fs,**/*.ml,**/*.mli}",
+		"dbaeumer.vscode-eslint": "{**/*.js,**/*.jsx,**/*.es6,**/.eslintrc.*,**/.eslintrc,**/.babelrc,**/jsconfig.json}",
+		"dbaeumer.jshint": "{**/*.js,**/*.jsx,**/*.es6,**/.babelrc,**/jsconfig.json,**/.jshintrc,**/.jshintignore}",
+		"ms-vscode.vscode-typescript-tslint-plugin": "{**/tslint.json}",
+		"bmewburn.vscode-intelephense-client": "{**/*.php,**/php.ini}",
+		"felixfbecker.php-intellisense": "{**/*.php,**/php.ini}",
+		"felixfbecker.php-debug": "{**/*.php,**/php.ini}",
+		"ikappas.phpcs": "{**/*.php,**/php.ini}",
+		"rust-lang.rust": "{**/*.rs,**/*.rslib}",
+		"ms-vscode.cpptools": "{**/*.c,**/*.cpp,**/*.cc,**/.cxx,**/*.hh,**/*.hpp,**/*.hxx,**/*.h}",
+		"DavidAnson.vscode-markdownlint": "{**/*.md}",
+		"ms-azuretools.vscode-docker": "{**/dockerfile,**/Dockerfile,**/docker-compose.yml,**/docker-compose.*.yml}",
+		"EditorConfig.EditorConfig": "{**/.editorconfig}",
+		"HookyQR.beautify": "{**/.jsbeautifyrc,**/*.js,**/*.jsx,**/*.es6,**/.eslintrc.*,**/.babelrc,**/jsconfig.json}",
+		"donjayamanne.githistory": "{**/.gitignore,**/.git}",
+		"felipecaputo.git-project-manager": "{**/.gitignore,**/.git}",
+		"eamodio.gitlens": "{**/.gitignore,**/.git}",
+		"rebornix.Ruby": "{**/*.rb,**/*.erb,**/*.reek,**/.fasterer.yml,**/ruby-lint.yml,**/.rubocop.yml}",
+		"DotJoshJohnson.xml": "{**/*.xml}",
+		"shinnn.stylelint": "{**/.stylelintrc,**/stylelint.config.js}",
+		"eg2.vscode-npm-script": "{**/package.json}",
+		"ms-mssql.mssql": "{**/*.sql}",
+		"bajdzis.vscode-database": "{**/*.sql}",
+		"mtxr.sqltools": "{**/*.sql}",
+		"usqlextpublisher.usql-vscode-ext": "{**/*.usql}",
+		"ms-vscode.sublime-keybindings": "{**/.sublime-project,**/.sublime-workspace}",
+		"k--kato.intellij-idea-keybindings": "{**/.idea}",
+		"christian-kohler.npm-intellisense": "{**/package.json}",
+		"octref.vetur": "{**/*.vue}",
+		"ms-python.python": "{**/*.py,**/*.ipynb}",
+		"cake-build.cake-vscode": "{**/build.cake}",
+		"Angular.ng-template": "{**/.angular-cli.json,**/angular.json,**/*.ng.html,**/*.ng,**/*.ngml}",
+		"vscjava.vscode-maven": "**/pom.xml",
+		"ms-azuretools.vscode-azureterraform": "**/*.tf",
+		"HashiCorp.terraform": "**/*.tf",
+		"vsciot-vscode.vscode-arduino": "**/*.ino",
+		"ms-kubernetes-tools.vscode-kubernetes-tools": "{**/Chart.yaml}",
+		"GoogleCloudTools.cloudcode": "{**/skaffold.yaml}",
+		"Oracle.oracledevtools": "{**/*.sql}"
+	},
+	"extensionImportantTips": {
+		"ms-dotnettools.csharp": {
+			"name": "C#",
+			"pattern": "{**/*.cs,**/project.json,**/global.json,**/*.csproj,**/*.cshtml,**/*.sln}"
+		},
+		"ms-python.python": {
+			"name": "Python",
+			"pattern": "{**/*.py,**/*.ipynb}"
+		},
+		"golang.Go": {
+			"name": "Go",
+			"pattern": "**/*.go"
+		},
+		"vscjava.vscode-java-pack": {
+			"name": "Java",
+			"pattern": "{**/*.java}",
+			"isExtensionPack": true
+		},
+		"ms-vscode.PowerShell": {
+			"name": "PowerShell",
+			"pattern": "{**/*.ps1,**/*.psd1,**/*.psm1}"
+		},
+		"ms-vscode.cpptools": {
+			"name": "C/C++",
+			"pattern": "{**/*.c,**/*.cpp,**/*.cc,**/.cxx,**/*.hh,**/*.hpp,**/*.hxx,**/*.h}"
+		},
+		"ms-azuretools.vscode-docker": {
+			"name": "Docker",
+			"pattern": "{**/dockerfile,**/Dockerfile,**/docker-compose.yml,**/docker-compose.*.yml}"
+		},
+		"ms-mssql.mssql": {
+			"name": "mssql",
+			"pattern": "{**/*.sql}"
+		},
+		"octref.vetur": {
+			"name": "Vetur",
+			"pattern": "{**/*.vue}"
+		},
+		"ms-vscode.cmake-tools": {
+			"name": "CMake Tools",
+			"pattern": "{**/CMakeLists.txt}"
+		},
+		"msazurermtools.azurerm-vscode-tools": {
+			"name": "Azure Resource Manager",
+			"pattern": "{**/azuredeploy.json}"
+		}
+	},
+	"keymapExtensionTips": ["vscodevim.vim", "ms-vscode.sublime-keybindings", "ms-vscode.atom-keybindings", "ms-vscode.vs-keybindings", "ms-vscode.notepadplusplus-keybindings", "k--kato.intellij-idea-keybindings", "hiro-sun.vscode-emacs", "alphabotsec.vscode-eclipse-keybindings", "alefragnani.delphi-keybindings"],
+	"configBasedExtensionTips": {
+		"git": {
+			"configPath": ".git/config",
+			"configName": "Git",
+			"recommendations": {
+				"github.vscode-pull-request-github": {
+					"name": "GitHub Pull Request",
+					"remotes": ["github.com"]
+				},
+				"eamodio.gitlens": {
+					"name": "GitLens"
+				}
+			}
+		}
+	},
+	"exeBasedExtensionTips": {
+		"az": {
+			"friendlyName": "Azure CLI",
+			"windowsPath": "%ProgramFiles(x86)%\\Microsoft SDKs\\Azure\\CLI2\\wbin\\az.cmd",
+			"recommendations": ["ms-vscode.azurecli"]
+		},
+		"heroku": {
+			"friendlyName": "Heroku CLI",
+			"windowsPath": "%ProgramFiles%\\Heroku\\bin\\heroku.cmd",
+			"recommendations": ["ms-azuretools.vscode-azureappservice", "pkosta2005.heroku-command"]
+		},
+		"mongo": {
+			"friendlyName": "Mongo",
+			"windowsPath": "%ProgramFiles%\\MongoDB\\Server\\3.6\\bin\\mongod.exe",
+			"recommendations": ["ms-azuretools.vscode-cosmosdb"]
+		},
+		"serverless": {
+			"friendlyName": "Serverless framework",
+			"windowsPath": "%APPDATA%\\npm\\serverless.cmd",
+			"recommendations": ["ms-azuretools.vscode-azurefunctions"]
+		},
+		"func": {
+			"friendlyName": "Azure Function SDK",
+			"windowsPath": "%APPDATA%\\npm\\func.cmd",
+			"recommendations": ["ms-azuretools.vscode-azurefunctions"]
+		},
+		"mysql": {
+			"friendlyName": "MySQL",
+			"windowsPath": "%ProgramFiles%\\MySQL\\MySQL Server 8.0\\bin\\mysqld.exe",
+			"recommendations": ["bajdzis.vscode-database", "mtxr.sqltools"]
+		},
+		"postgres": {
+			"friendlyName": "PostgreSQL",
+			"windowsPath": "%ProgramFiles%\\PostgreSQL\\11\\bin\\psql.exe",
+			"recommendations": ["ms-ossdata.vscode-postgresql", "mtxr.sqltools", "bajdzis.vscode-database"]
+		},
+		"sqlcmd": {
+			"friendlyName": "SQL CLI",
+			"recommendations": ["ms-mssql.mssql"]
+		},
+		"now": {
+			"friendlyName": "Now CLI",
+			"windowsPath": "%APPDATA%\\npm\\now.cmd",
+			"recommendations": ["ms-azuretools.vscode-azureappservice", "ms-azuretools.vscode-docker"]
+		},
+		"docker": {
+			"friendlyName": "Docker",
+			"windowsPath": "%ProgramFiles%\\Docker\\Docker\\Resources\\bin\\docker.exe",
+			"recommendations": ["ms-azuretools.vscode-docker", "ms-kubernetes-tools.vscode-kubernetes-tools", "GoogleCloudTools.cloudcode", "ms-vscode-remote.remote-containers"]
+		},
+		"kubectl": {
+			"friendlyName": "Kubernetes",
+			"windowsPath": "%ProgramFiles%\\Docker\\Docker\\Resources\\bin\\kubectl.exe",
+			"recommendations": ["ms-azuretools.vscode-docker", "ms-kubernetes-tools.vscode-kubernetes-tools", "GoogleCloudTools.cloudcode", "ms-vscode-remote.remote-containers"]
+		},
+		"ng": {
+			"friendlyName": "Angular CLI",
+			"windowsPath": "%APPDATA%\\npmexit\\ng.cmd",
+			"recommendations": ["johnpapa.Angular2"]
+		},
+		"create-react-app": {
+			"friendlyName": "Create React App",
+			"windowsPath": "%APPDATA%\\npm\\create-react-app.cmd",
+			"recommendations": ["vsmobile.vscode-react-native"]
+		},
+		"p4": {
+			"friendlyName": "Perforce",
+			"recommendations": ["slevesque.perforce"]
+		},
+		"hg": {
+			"friendlyName": "Mercurial",
+			"recommendations": ["mrcrowl.hg"]
+		},
+		"subl": {
+			"friendlyName": "Sublime",
+			"windowsPath": "%ProgramFiles%\\Sublime Text3\\sublime_text.exe",
+			"recommendations": ["ms-vscode.sublime-keybindings"]
+		},
+		"atom": {
+			"friendlyName": "Atom",
+			"windowsPath": "%USERPROFILE%\\AppData\\Local\\atom\\bin\\atom.cmd",
+			"recommendations": ["ms-vscode.atom-keybindings"]
+		},
+		"notepadplusplus": {
+			"friendlyName": "Notepad++",
+			"windowsPath": "%ProgramFiles%\\Notepad++\\Notepad++.exe",
+			"recommendations": ["ms-vscode.notepadplusplus-keybindings"]
+		},
+		"vi": {
+			"friendlyName": "VIM",
+			"windowsPath": "%ProgramFiles(x86)%\\Vim\\vim80\\gvim.exe",
+			"recommendations": ["vscodevim.vim"]
+		},
+		"mvn": {
+			"friendlyName": "Maven",
+			"recommendations": ["vscjava.vscode-maven"]
+		},
+		"Microsoft Edge": {
+			"friendlyName": "Microsoft Edge",
+			"windowsPath": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge\\Application\\msedge.exe",
+			"recommendations": ["msjsdiag.debugger-for-edge", "ms-edgedevtools.vscode-edge-devtools"]
+		},
+		"Microsoft Edge Dev": {
+			"friendlyName": "Microsoft Edge Dev",
+			"windowsPath": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge Dev\\Application\\msedge.exe",
+			"recommendations": ["msjsdiag.debugger-for-edge", "ms-edgedevtools.vscode-edge-devtools"]
+		},
+		"Microsoft Edge Beta": {
+			"friendlyName": "Microsoft Edge Beta",
+			"windowsPath": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge Beta\\Application\\msedge.exe",
+			"recommendations": ["msjsdiag.debugger-for-edge", "ms-edgedevtools.vscode-edge-devtools"]
+		},
+		"Microsoft Edge Canary": {
+			"friendlyName": "Microsoft Edge Canary",
+			"windowsPath": "%USERPROFILE%\\AppData\\Local\\Microsoft\\Edge SxS\\Application\\msedge.exe",
+			"recommendations": ["msjsdiag.debugger-for-edge", "ms-edgedevtools.vscode-edge-devtools"]
+		},
+		"Mozilla Firefox (x86)": {
+			"friendlyName": "Mozilla Firefox",
+			"windowsPath": "%ProgramFiles(x86)%\\Mozilla Firefox\\firefox.exe",
+			"recommendations": ["firefox-devtools.vscode-firefox-debug"]
+		},
+		"Mozilla Firefox Developer Edition (x86)": {
+			"friendlyName": "Mozilla Firefox Developer Edition",
+			"windowsPath": "%ProgramFiles(x86)%\\Firefox Developer Edition\\firefox.exe",
+			"recommendations": ["firefox-devtools.vscode-firefox-debug"]
+		},
+		"Mozilla Firefox": {
+			"friendlyName": "Mozilla Firefox",
+			"windowsPath": "%ProgramFiles%\\Mozilla Firefox\\firefox.exe",
+			"recommendations": ["firefox-devtools.vscode-firefox-debug"]
+		},
+		"Mozilla Firefox Developer Edition": {
+			"friendlyName": "Mozilla Firefox Developer Edition",
+			"windowsPath": "%ProgramFiles%\\Firefox Developer Edition\\firefox.exe",
+			"recommendations": ["firefox-devtools.vscode-firefox-debug"]
+		},
+		"react-native": {
+			"friendlyName": "React Native",
+			"windowsPath": "%APPDATA%\\npm\\react-native-cli",
+			"recommendations": ["vsmobile.vscode-react-native"]
+		},
+		"cordova": {
+			"friendlyName": "Cordova",
+			"windowsPath": "%APPDATA%\\npm\\cordova",
+			"recommendations": ["vsmobile.cordova-tools"]
+		},
+		"gcloud": {
+			"friendlyName": "Google GCloud CLI",
+			"windowsPath": "%ProgramFiles(x86)%\\Google\\Cloud SDK\\google-cloud-sdk\\bin\\gcloud.cmd",
+			"recommendations": ["GoogleCloudTools.cloudcode"]
+		},
+		"skaffold": {
+			"friendlyName": "Skaffold Code to Cluster",
+			"recommendations": ["ms-azuretools.vscode-docker", "ms-kubernetes-tools.vscode-kubernetes-tools", "GoogleCloudTools.cloudcode"]
+		},
+		"minikube": {
+			"friendlyName": "MiniKube Local Kubernetes Cluster",
+			"recommendations": ["ms-azuretools.vscode-docker", "ms-kubernetes-tools.vscode-kubernetes-tools", "GoogleCloudTools.cloudcode", "ms-vscode-remote.remote-containers"]
+		},
+		"podman": {
+			"friendlyName": "Podman",
+			"recommendations": ["ms-vscode-remote.remote-containers"]
+		},
+		"wsl": {
+			"friendlyName": "Remote - WSL",
+			"windowsPath": "%WINDIR%\\system32\\lxss\\LxssManager.dll",
+			"exeFriendlyName": "Windows Linux Subsystem (WSL)",
+			"important": true,
+			"recommendations": ["ms-vscode-remote.remote-wsl"]
+		}
+	},
+	"remoteExtensionTips": {
+		"wsl": {
+			"friendlyName": "Remote - WSL",
+			"extensionId": "ms-vscode-remote.remote-wsl"
+		},
+		"ssh-remote": {
+			"friendlyName": "Remote - SSH",
+			"extensionId": "ms-vscode-remote.remote-ssh"
+		},
+		"dev-container": {
+			"friendlyName": "Remote - Containers",
+			"extensionId": "ms-vscode-remote.remote-containers"
+		},
+		"attached-container": {
+			"friendlyName": "Remote - Containers",
+			"extensionId": "ms-vscode-remote.remote-containers"
+		},
+		"vsonline": {
+			"friendlyName": "Visual Studio Online",
+			"extensionId": "ms-vsonline.vsonline"
+		}
+	},
 	"extensionAllowedProposedApi": [
 		"ms-vscode.vscode-js-profile-flame",
 		"ms-vscode.vscode-js-profile-table",
