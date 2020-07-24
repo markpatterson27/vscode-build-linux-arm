@@ -455,6 +455,7 @@
 		"editCount": 10,
 		"userProbability": 0.05
 	}],
+	"experimentsUrl": "https://vscodeexperiments.azureedge.net/experiments/vscode-experiments.json",
 	"builtInExtensions": [
 		{
 			"name": "ms-vscode.node-debug",
