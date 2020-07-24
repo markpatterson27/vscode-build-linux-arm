@@ -456,6 +456,17 @@
 		"userProbability": 0.05
 	}],
 	"experimentsUrl": "https://vscodeexperiments.azureedge.net/experiments/vscode-experiments.json",
+	"extensionKind": {
+		"Shan.code-settings-sync": ["ui"],
+		"shalldie.background": ["ui"],
+		"techer.open-in-browser": ["ui"],
+		"manasxx.background-cover": ["ui"],
+		"CoenraadS.bracket-pair-colorizer": ["ui", "workspace"],
+		"CoenraadS.bracket-pair-colorizer-2": ["ui"],
+		"hiro-sun.vscode-emacs": ["ui", "workspace"],
+		"hnw.vscode-auto-open-markdown-preview": ["ui", "workspace"],
+		"wayou.vscode-todo-highlight": ["ui", "workspace"]
+	},
 	"builtInExtensions": [
 		{
 			"name": "ms-vscode.node-debug",
