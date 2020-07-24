@@ -429,6 +429,32 @@
 	"twitterUrl": "https://go.microsoft.com/fwlink/?LinkID=533687",
 	"requestFeatureUrl": "https://go.microsoft.com/fwlink/?LinkID=533482",
 	"privacyStatementUrl": "https://go.microsoft.com/fwlink/?LinkId=786907",
+	"npsSurveyUrl": "https://www.research.net/r/Z2RMYRJ",
+	"surveys": [{
+		"surveyId": "cpp.1",
+		"surveyUrl": "https://www.research.net/r/VBVV6C6",
+		"languageId": "cpp",
+		"editCount": 10,
+		"userProbability": 0.15
+	}, {
+		"surveyId": "java.2",
+		"surveyUrl": "https://www.research.net/r/vscodejava",
+		"languageId": "java",
+		"editCount": 10,
+		"userProbability": 0.3
+	}, {
+		"surveyId": "javascript.1",
+		"surveyUrl": "https://www.research.net/r/vscode-js",
+		"languageId": "javascript",
+		"editCount": 10,
+		"userProbability": 0.05
+	}, {
+		"surveyId": "typescript.1",
+		"surveyUrl": "https://www.research.net/r/vscode-ts",
+		"languageId": "typescript",
+		"editCount": 10,
+		"userProbability": 0.05
+	}],
 	"builtInExtensions": [
 		{
 			"name": "ms-vscode.node-debug",
