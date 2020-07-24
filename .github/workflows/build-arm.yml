@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: ARM build
+name: ARM builds
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -52,13 +52,21 @@ jobs:
     - name: yarn
       run: yarn --cwd vscode
 
-    # minify
-    - name: yarn minify
+    # minify arm32
+    - name: yarn minify 32-bit
       run: yarn --cwd vscode run gulp vscode-linux-arm-min
 
-    # build deb
-    - name: yarn build deb
+    # build deb arm32
+    - name: yarn build deb 32-bit
       run: yarn --cwd vscode run gulp vscode-linux-arm-build-deb
+
+    # minify arm64
+    - name: yarn minify 64-bit
+      run: yarn --cwd vscode run gulp vscode-linux-arm64-min
+
+    # build deb arm64
+    - name: yarn build deb 64-bit
+      run: yarn --cwd vscode run gulp vscode-linux-arm64-build-deb
 
     # check build dir
     - name: list deb files
