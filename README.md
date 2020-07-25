@@ -25,3 +25,4 @@ Tested on Jetson Nano.
 ## References
 
 - <https://github.com/Microsoft/vscode/wiki/Cross-Compiling-for-Debian-Based-Linux>
+- <https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/>
