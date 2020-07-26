@@ -20,8 +20,8 @@ jobs:
     - name: Register arch support with docker
       run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes # This step will execute the registering scripts
 
-    - name: Check cross arch support
-      run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
+    # - name: Check cross arch support
+    #   run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
 
     # build container
     - name: Build docker container
@@ -31,37 +31,55 @@ jobs:
     - name: Clone VS Code repository
       run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
 
-    # change product.json
+    # # check file/folder permissions
+    # - name: check permissions
+    #   run: ls -al ./vscode
+
+    # - name: check permissions from docker
+    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode"
+
+    # - name: make folder and check permissions from docker
+    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "mkdir /vscode/test; ls -al /vscode"
+
+    # - name: check permission of new folder
+    #   run: ls -al ./vscode
+
+    # Replace product.json with our one
+    - name: Copy in product.json
+      run: cp ./product.json ./vscode/product.json
 
     # fix sqlite
 
     # inherit group ownership
-    - name: inherit group ownership
-      run: chmod g+s ./vscode
+    # - name: inherit group ownership
+    #   run: chmod g+s ./vscode
 
     # yarn
     - name: yarn in docker
       run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode --network-timeout 100000"
+    
+    - name: check permission post yarn
+      run: ls -al ./vscode
 
     # rebuild electron
     - name: rebuild electron and sqlite3
       run: |
-        sed -i -z 's/,\n[^\n]*arm[^\n]*//' vscode/node_modules/vscode-sqlite3/binding.gyp
-        sed -i "s/Release\/sqlite'/Release\/sqlite.node'/" vscode/node_modules/vscode-sqlite3/lib/sqlite3.js
-        docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode add -D electron-rebuild"
+        sudo sed -i -z 's/,\n[^\n]*arm[^\n]*//' vscode/node_modules/vscode-sqlite3/binding.gyp
+        sudo sed -i "s/Release\/sqlite'/Release\/sqlite.node'/" vscode/node_modules/vscode-sqlite3/lib/sqlite3.js
+        docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode add -D electron-rebuild --network-timout 100000"
         docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd vscode; npx vscode electron-rebuild -f -w vscode-sqlite3; cd /"
 
     # yarn build min
-    - name: yarn minify 64-bit
-      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode run gulp vscode-linux-arm64-min"
+    - name: yarn minify and deb build 64-bit
+      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
 
     # check vscode folder
-    - name: check vscode folder
+    - name: check permissions post build
       run: ls -al ./vscode
 
-    # yarn build deb
-    - name: yarn build deb 64-bit
-      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode run gulp vscode-linux-arm64-build-deb"
+    # # yarn build deb
+    # - name: yarn build deb 64-bit
+    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode run gulp vscode-linux-arm64-build-deb"
 
     # check build dir
     - name: list deb files
@@ -75,7 +93,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-arm64-docker-build-5"
+        tag_name="test-arm64-docker-build-9"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
