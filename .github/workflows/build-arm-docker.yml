@@ -35,6 +35,10 @@ jobs:
 
     # fix sqlite
 
+    # inherit group ownership
+    - name: inherit group ownership
+      run: chmod g+s ./vscode
+
     # yarn
     - name: yarn in docker
       run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode --network-timeout 100000"
@@ -63,7 +67,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-arm64-docker-build-2"
+        tag_name="test-arm64-docker-build-3"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

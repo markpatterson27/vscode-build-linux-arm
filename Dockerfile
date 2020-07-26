@@ -27,3 +27,5 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 RUN apt-get update \
   && apt-get install -y libx11-dev libxkbfile-dev libsecret-1-dev fakeroot \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN addgroup --gid 116 contdock
