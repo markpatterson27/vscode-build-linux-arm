@@ -30,5 +30,5 @@ RUN apt-get update \
 
 RUN addgroup --gid 116 contdock
 
-RUN adduser --disabled-password --gecos "" --force-badname --ingroup 116 contuser 
+RUN adduser --disabled-password --gecos "" --force-badname --gid 116 --uid 1001 contuser 
 USER contuser
