@@ -29,3 +29,6 @@ RUN apt-get update \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN addgroup --gid 116 contdock
+
+RUN adduser --disabled-password --gecos "" --force-badname --ingroup 116 contuser 
+USER contuser
