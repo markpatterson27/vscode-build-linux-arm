@@ -8,17 +8,58 @@ on:
     branches: [ master ]
 
 jobs:
-    # Create release
-    build-arm64-on-docker:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
+  # Create release
+  build-arm64-on-docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
 
-        - name: Install cross architecture support
-          run: sudo apt update && sudo apt-get install -y qemu binfmt-support qemu-user-static # Install the qemu packages
+    - name: Install cross architecture support
+      run: sudo apt update && sudo apt-get install -y qemu binfmt-support qemu-user-static # Install the qemu packages
 
-        - name: Register arch support with docker
-          run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes # This step will execute the registering scripts
+    - name: Register arch support with docker
+      run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes # This step will execute the registering scripts
 
-        - name: Check cross arch support
-          run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
+    - name: Check cross arch support
+      run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
+
+    # build container
+    - name: Build docker container
+      run: docker build -t builder .
+
+    # clone vscode repo
+    - name: Clone VS Code repository
+      run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
+
+    # change product.json
+
+    # fix sqlite
+
+    # yarn
+    - name: yarn in docker
+      run: docker run -v $(pwd)/vscode:/vscode builder yarn --cwd /vscode --network-timeout 100000
+
+    # yarn build min
+    - name: yarn minify 64-bit
+      run: docker run -v $(pwd)/vscode:/vscode builder yarn --cwd /vscode run gulp vscode-linux-arm64-min
+
+    # yarn build deb
+    - name: yarn build deb 64-bit
+      run: docker run -v $(pwd)/vscode:/vscode builder yarn --cwd /vscode run gulp vscode-linux-arm64-build-deb
+
+    # check build dir
+    - name: list deb files
+      run: find ./vscode/.build -type f -name "*.deb"
+
+    # upload debs as release. using hub cli
+    - name: release debs
+      run: |
+        set -x
+        assets=()
+        for asset in $(find ./vscode/.build -type f -name "*.deb"); do
+          assets+=("-a" "$asset")
+        done
+        tag_name="test-arm64-docker-build"
+        hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
