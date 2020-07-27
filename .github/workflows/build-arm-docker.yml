@@ -42,9 +42,6 @@ jobs:
     # yarn
     - name: yarn in docker
       run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode; yarn --cwd /vscode --network-timeout 100000"
-    
-    - name: check permission post yarn
-      run: ls -al ./vscode
 
     # fix sqlite and rebuild electron
     - name: rebuild electron and sqlite3
