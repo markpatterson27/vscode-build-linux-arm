@@ -2,18 +2,18 @@ FROM arm64v8/ubuntu:18.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# install tzdata
-RUN apt-get update \
-  && apt-get install -y tzdata \
-#   && ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime \
-#   && dpkg-reconfigure --frontend noninteractive tzdata \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+# # install tzdata
+# RUN apt-get update \
+#   && apt-get install -y tzdata \
+# #   && ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime \
+# #   && dpkg-reconfigure --frontend noninteractive tzdata \
+#   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install nodejs
 RUN apt-get update \
   && apt-get install -y git cmake build-essential curl libcurl4-openssl-dev \
-  libssl-dev uuid-dev pkg-config nano gcc g++ make
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+  libssl-dev uuid-dev pkg-config nano gcc g++ make \
+  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get install -y nodejs \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
