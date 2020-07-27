@@ -28,7 +28,9 @@ RUN apt-get update \
   && apt-get install -y libx11-dev libxkbfile-dev libsecret-1-dev fakeroot \
   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# add group with same id as host
 RUN addgroup --gid 116 contdock
 
+# add user with same id as host
 RUN adduser --disabled-password --gecos "" --force-badname --gid 116 --uid 1001 contuser 
 # USER contuser

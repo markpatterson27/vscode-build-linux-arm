@@ -31,24 +31,9 @@ jobs:
     - name: Clone VS Code repository
       run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.47.2
 
-    # # check file/folder permissions
-    # - name: check permissions
-    #   run: ls -al ./vscode
-
-    # - name: check permissions from docker
-    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "ls -al /vscode"
-
-    # - name: make folder and check permissions from docker
-    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "mkdir /vscode/test; ls -al /vscode"
-
-    # - name: check permission of new folder
-    #   run: ls -al ./vscode
-
     # Replace product.json with our one
     - name: Copy in product.json
       run: cp ./product.json ./vscode/product.json
-
-    # fix sqlite
 
     # inherit group ownership
     # - name: inherit group ownership
@@ -61,7 +46,7 @@ jobs:
     - name: check permission post yarn
       run: ls -al ./vscode
 
-    # rebuild electron
+    # fix sqlite and rebuild electron
     - name: rebuild electron and sqlite3
       run: |
         sudo sed -i -z 's/,\n[^\n]*arm[^\n]*//' vscode/node_modules/vscode-sqlite3/binding.gyp
@@ -70,20 +55,16 @@ jobs:
         docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd vscode; npx vscode electron-rebuild -f -w vscode-sqlite3; cd /"
 
     # compile
-    - name: yarn compile
-      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode compile --network-timout 100000"
+    # - name: yarn compile
+    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode compile --network-timout 100000"
 
-    # download extensions
-    - name: yarn download-builtin-extensions
-      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode download-builtin-extensions --network-timout 100000"
+    # # download extensions
+    # - name: yarn download-builtin-extensions
+    #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode download-builtin-extensions --network-timout 100000"
 
-    # yarn build min
+    # yarn build min and build deb - 64bit
     - name: yarn minify and deb build 64-bit
       run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
-
-    # check vscode folder
-    - name: check permissions post build
-      run: ls -al ./vscode
 
     # # yarn build deb
     # - name: yarn build deb 64-bit
