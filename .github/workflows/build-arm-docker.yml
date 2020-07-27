@@ -69,6 +69,14 @@ jobs:
         docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode add -D electron-rebuild --network-timout 100000"
         docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd vscode; npx vscode electron-rebuild -f -w vscode-sqlite3; cd /"
 
+    # compile
+    - name: yarn compile
+      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode compile --network-timout 100000"
+
+    # download extensions
+    - name: yarn download-builtin-extensions
+      run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode download-builtin-extensions --network-timout 100000"
+
     # yarn build min
     - name: yarn minify and deb build 64-bit
       run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
@@ -93,7 +101,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-arm64-docker-build-9"
+        tag_name="test-arm64-docker-build-10"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
