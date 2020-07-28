@@ -1,5 +1,5 @@
 #
-name: ARM build Docker
+name: ARM builds on Docker
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -23,9 +23,13 @@ jobs:
     # - name: Check cross arch support
     #   run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
 
-    # build container
+    # build 64bit container
     - name: Build docker 64bit container
       run: docker build -t builder -t builder64 -f Dockerfile-builder64 .
+
+    # build 32bit container
+    - name: Build docker 32bit container
+      run: docker build -t builder32 -f Dockerfile-builder32 .
 
     # clone vscode repo
     - name: Clone VS Code repository
@@ -61,7 +65,7 @@ jobs:
 
     # yarn build min and build deb - 32bit
     - name: yarn minify and deb build 32-bit
-      run: docker run -v $(pwd)/vscode:/vscode builder64 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm-min; yarn run gulp vscode-linux-arm-build-deb"
+      run: docker run -v $(pwd)/vscode:/vscode builder32 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm-min; yarn run gulp vscode-linux-arm-build-deb"
 
     # yarn build min and build deb - 64bit
     - name: yarn minify and deb build 64-bit
