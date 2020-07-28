@@ -68,8 +68,8 @@ jobs:
       run: docker run -v $(pwd)/vscode:/vscode builder32 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm-min; yarn run gulp vscode-linux-arm-build-deb"
 
     # yarn build min and build deb - 64bit
-    - name: yarn minify and deb build 64-bit
-      run: docker run -v $(pwd)/vscode:/vscode builder64 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
+    # - name: yarn minify and deb build 64-bit
+    #   run: docker run -v $(pwd)/vscode:/vscode builder64 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
 
     # # yarn build deb
     # - name: yarn build deb 64-bit
@@ -87,7 +87,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-docker-build-both-32-64"
+        tag_name="test-docker-build-only-32"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
