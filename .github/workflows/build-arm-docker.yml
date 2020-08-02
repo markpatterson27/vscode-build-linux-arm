@@ -24,8 +24,8 @@ jobs:
     #   run: docker run --rm -t arm64v8/ubuntu uname -m # Testing the emulation environment
 
     # build 64bit container
-    # - name: Build docker 64bit container
-    #   run: docker build -t builder -t builder64 -f Dockerfile-builder64 .
+    - name: Build docker 64bit container
+      run: docker build -t builder -t builder64 -f Dockerfile-builder64 .
 
     # build 32bit container
     - name: Build docker 32bit container
@@ -45,7 +45,7 @@ jobs:
 
     # yarn
     - name: yarn in docker
-      run: docker run -v $(pwd)/vscode:/vscode builder32 /bin/bash -c "ls -al /vscode; yarn --cwd /vscode --network-timeout 100000"
+      run: docker run -v $(pwd)/vscode:/vscode builder64 /bin/bash -c "ls -al /vscode; yarn --cwd /vscode --network-timeout 100000"
 
     # fix sqlite and rebuild electron
     - name: rebuild electron and sqlite3
@@ -91,7 +91,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-docker-build-on-only-32"
+        tag_name="test-docker-build-32-with-yarn-on-64"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
