@@ -63,13 +63,17 @@ jobs:
     # - name: yarn download-builtin-extensions
     #   run: docker run -v $(pwd)/vscode:/vscode builder /bin/bash -c "yarn --cwd vscode download-builtin-extensions --network-timout 100000"
 
-    # yarn build min and build deb - 32bit
-    - name: yarn minify and deb build 32-bit
-      run: docker run -v $(pwd)/vscode:/vscode builder32 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm-min; yarn run gulp vscode-linux-arm-build-deb"
-
     # yarn build min and build deb - 64bit
     # - name: yarn minify and deb build 64-bit
     #   run: docker run -v $(pwd)/vscode:/vscode builder64 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm64-min; yarn run gulp vscode-linux-arm64-build-deb"
+
+    # reduce gulp memory below 4GB
+    - name: reduce gulp memory footprint for 32bit systems
+      run: sed -i 's/8192/3584/g' vscode/package.json
+
+    # yarn build min and build deb - 32bit
+    - name: yarn minify and deb build 32-bit
+      run: docker run -v $(pwd)/vscode:/vscode builder32 /bin/bash -c "cd /vscode; ls -al; yarn run gulp vscode-linux-arm-min; yarn run gulp vscode-linux-arm-build-deb"
 
     # # yarn build deb
     # - name: yarn build deb 64-bit
