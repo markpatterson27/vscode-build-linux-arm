@@ -5,7 +5,8 @@ name: ARM builds on Docker
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    # branches: [ master ]
+    tags: ["v*"] # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   # Create release
@@ -99,7 +100,7 @@ jobs:
         for asset in $(find ./vscode/.build -type f -name "*.deb"); do
           assets+=("-a" "$asset")
         done
-        tag_name="test-docker-build-32-and-64-with-yarn-on-64"
+        tag_name="${GITHUB_REF##*/}"
         hub release create "${assets[@]}" -m "$tag_name" "$tag_name"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
