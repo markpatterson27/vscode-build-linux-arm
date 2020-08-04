@@ -14,13 +14,15 @@ The .deb files can be installed using dpkg.
 sudo dpkg -i ~/Downloads/code-oss_1.??.?-*_armhf.deb
 ```
 
+Tested on Raspberry Pi 4 running Raspberry OS.
+
 #### 64-bit
 
 ```bash
 sudo dpkg -i ~/Downloads/code-oss_1.??.?-*_arm64.deb
 ```
 
-Tested on Jetson Nano.
+Tested on Jetson Nano running Ubuntu 18.04.
 
 ## References
 
