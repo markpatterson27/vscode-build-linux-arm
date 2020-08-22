@@ -34,7 +34,7 @@ jobs:
 
     # clone vscode repo
     - name: Clone VS Code repository
-      run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.48.0
+      run: git clone --depth 1 https://github.com/microsoft/vscode.git --branch 1.48.1
 
     # Replace product.json with our one
     - name: Copy in product.json
