@@ -1,3 +1,5 @@
+Offical ARM builds are now provided by Microsoft on the [VS Code download page](https://code.visualstudio.com/#alt-downloads). VS Code is even available in the [Raspberry Pi APT packages](https://code.visualstudio.com/docs/setup/raspberry-pi).
+
 # VS Code Build Linux ARM
 
 ![ARM builds](https://github.com/markpatterson27/vscode-build-linux-arm/workflows/ARM%20builds/badge.svg)
